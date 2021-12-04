@@ -14,6 +14,8 @@ snowflake-api is a Java based Twitter snowflake project. Its aim is to generate 
 ✔️ 12 bits for sequence number that rolls over every 4096 per machine and avoids rolling over in the same millisecond.
 
 
+
+
 📘 References:
 
 - https://github.com/twitter/snowflake/tree/snowflake-2010
