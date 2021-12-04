@@ -1,4 +1,4 @@
-## ❄️SNOWFLAKE-API WRITTEN IN JAVA❄️
+# ❄️SNOWFLAKE-API WRITTEN IN JAVA❄️
 snowflake-api is a Java based Twitter snowflake project. Its aim is to generate roughly sortable unique ids for distributed systems.
 
 **64 bit id is composed of:**
@@ -16,6 +16,6 @@ snowflake-api is a Java based Twitter snowflake project. Its aim is to generate 
 
 
 
-📘 References:
+## 📘 References:
 
 - https://github.com/twitter/snowflake/tree/snowflake-2010
