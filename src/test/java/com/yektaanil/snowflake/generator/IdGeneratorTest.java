@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,14 +36,20 @@ class IdGeneratorTest {
         ExecutorService service = Executors.newFixedThreadPool(numberOfThreads);
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
         for (int i = 0; i < numberOfThreads; i++) {
-            service.submit(() -> {
-                long id = idGenerator.nextId();
-                //System.out.println(Thread.currentThread().getName()+ "      |      id:    "+id);
-                uniqueSet.add(id);
-                latch.countDown();
-            });
+         service.submit(
+          () -> {
+            try {
+              latch.countDown();
+              latch.await();
+              long id = idGenerator.nextId();
+              uniqueSet.add(id);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          });
         }
-        latch.await();
+        service.shutdown();
+        service.awaitTermination(5, TimeUnit.SECONDS);
         assertEquals(numberOfThreads, uniqueSet.size());
     }
 }
